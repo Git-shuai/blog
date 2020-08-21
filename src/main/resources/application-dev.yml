@@ -1,0 +1,36 @@
+server:
+  port: 9000
+
+
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:D:\blog\blog
+    username: sa
+    password: sa
+  flyway:
+    # 如果启动的时候需要flyway管理sql脚本的话，将enabled设置为true
+    enabled: false
+
+    # 如果数据库不是空表，需要设置成 true，否则启动报错
+    baseline-on-migrate: off
+    # 验证错误时 是否自动清除数据库 高危操作!
+    clean-on-validation-error: false
+    baselineOnMigrate: true
+logging:
+  level:
+    com.tian.blog.mapper: debug  # 数据库日志输出
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+    safe-row-bounds-enabled: true
+  type-aliases-package: com.tian.blog.mapper
+  mapper-locations: classpath:mapper/*.xml
+
+alibaba:
+  regionId: cn-hangzhou
+  accessKeyId: LTAI4GKFEdq8rX8H5NJRhfzg
+  secret: 26UOpMCkZAjzvlHbhtpJTThYHBMSPV
+  signName: ABC博客
+  templateCode: SMS_199808309
