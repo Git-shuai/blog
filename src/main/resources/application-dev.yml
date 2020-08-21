@@ -5,7 +5,7 @@ server:
 spring:
   datasource:
     driver-class-name: org.h2.Driver
-    url: jdbc:h2:D:\blog\blog
+    url: jdbc:h2:blog
     username: sa
     password: sa
   flyway:
@@ -29,8 +29,8 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
 
 alibaba:
-  regionId: cn-hangzhou
-  accessKeyId: LTAI4GKFEdq8rX8H5NJRhfzg
-  secret: 26UOpMCkZAjzvlHbhtpJTThYHBMSPV
-  signName: ABC博客
-  templateCode: SMS_199808309
+  regionId:
+  accessKeyId:
+  secret:
+  signName:
+  templateCode:

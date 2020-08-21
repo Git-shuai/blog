@@ -28,3 +28,9 @@ mybatis:
   type-aliases-package: com.tian.blog.mapper
   mapper-locations: classpath:mapper/*.xml
 
+alibaba:
+  regionId:
+  accessKeyId:
+  secret:
+  signName:
+  templateCode:
