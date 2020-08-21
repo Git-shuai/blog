@@ -1,0 +1,93 @@
+### 添加数据
+POST http://localhost:9000/user/add
+Content-Type: application/json
+
+{
+  "qq": 1873461847,
+  "password": "123456",
+  "gmtModified": 1597369381,
+  "phone": 1111111,
+  "wechat": "demoData",
+  "gmtCreat": 1597369381,
+  "delete": 0,
+  "version": 1,
+  "email": "1873461847@qq.com",
+  "username": "令狐冲"
+}
+
+
+### 全部查询
+GET http://localhost:9000/user/listAll
+Accept: application/json
+
+### 根据id进行查询
+GET http://localhost:9000/user/get/1
+
+
+### 根据name进行查询
+GET http://localhost:9000/user/like/令
+
+
+### 根据id进行逻辑删除
+GET http://localhost:9000/user/delete/1
+
+
+### 分页函数
+GET http://localhost:9000/user/page/1/2
+
+
+### 更新数据
+POST http://localhost:9000/user/update
+Content-Type: application/json
+
+{
+  "qq": 1873461847,
+  "password": "951",
+  "gmtModified": 1597369381,
+  "phone": 1111111,
+  "wechat": "demoData",
+  "id": 1,
+  "gmtCreat": 1597369381,
+  "delete": 0,
+  "version": 1,
+  "email": "1873461847@qq.com",
+  "username": "冯帅帅"
+}
+
+### 登录测试
+POST http://localhost:9000/user/login
+Content-Type: application/json
+
+{
+  "username": "tom12",
+  "password": "123456"
+}
+
+### 接受验证码
+GET http://localhost:9000/user/loginSms/18438576916
+
+### 手机用户注册
+POST http://localhost:9000/user/phoneAdd
+Content-Type: application/json
+
+{
+  "code": "696004",
+  "phoneNum": "18438576916",
+  "dateNow": "demoData"
+}
+
+
+### 手机登录
+POST http://localhost:9000/user/phoneLogin
+Content-Type: application/json
+
+{
+  "code": "696004",
+  "phoneNum": "1873461847",
+  "dateNow": "demoData"
+}
+
+
+
+### 把验证码发送到前端
+GET http://localhost:9000/user/getVCode
