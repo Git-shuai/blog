@@ -22,6 +22,11 @@ public class UserRealm  extends AuthorizingRealm {
     private UserService userService;
 
 
+    /**
+     * 授权信息
+     * @param principalCollection
+     * @return
+     */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         Subject subject = SecurityUtils.getSubject();
@@ -31,6 +36,12 @@ public class UserRealm  extends AuthorizingRealm {
         return info;
     }
 
+    /**
+     * 认证方法
+     * @param authenticationToken
+     * @return
+     * @throws AuthenticationException
+     */
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;

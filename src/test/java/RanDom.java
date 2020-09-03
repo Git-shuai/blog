@@ -1,8 +1,8 @@
+import org.apache.ibatis.reflection.ArrayUtil;
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Random;
+import java.util.*;
 
 /**
  * @author tian
@@ -32,4 +32,10 @@ public class RanDom {
         System.out.println(sdf.format(date1));
     }
 
+    @Test
+    public void test3(){
+        List<String> list = Arrays.asList("1", "2", "3");
+        System.out.println(list.get(1));
+
+    }
 }

@@ -33,7 +33,6 @@ public class ShiroConfig {
 //        filterMap.put("/user/update","authc");
         filterMap.put("/user/update/**","authc");
         filterMap.put("/user/delete/**","authc");
-        filterMap.put("/user/get/**","authc");
 
         bean.setLoginUrl("/toLogin");
         bean.setUnauthorizedUrl("/noAuth");

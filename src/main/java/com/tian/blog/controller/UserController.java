@@ -32,94 +32,94 @@ public class UserController {
 
 
     @PostMapping("/add")
-    public String addUser(@RequestBody User user) {
+    public Result addUser(@RequestBody User user) {
 
         User user1 = userService.queryUserIsExistByName(user.getUsername());
         if (!StringUtils.isEmpty(user1)) {
-            return JSON.toJSONString(new Result<User>(ResponseCode.ERROR_INSERT_CODE, null));
+            return new Result<User>(ResponseCode.ERROR_INSERT_CODE, null);
         }
 
         User result = userService.insertUser(user);
         if (result == null) {
-            return JSON.toJSONString(new Result<>(ResponseCode.ERROR_QUERY_CODE, null));
+            return new Result<>(ResponseCode.ERROR_QUERY_CODE, null);
         }
-        return JSON.toJSONString(new Result<>(ResponseCode.SUCCESS_INSERT_CODE, result));
+        return new Result<>(ResponseCode.SUCCESS_INSERT_CODE, result);
     }
 
     @GetMapping("/listAll")
-    public String selectUserList() {
+    public Result selectUserList() {
         List<User> result = userService.queryUserList();
         if (result.size() == 0 || result == null) {
-            JSON.toJSONString(new Result<>(ResponseCode.ERROR_QUERY_CODE, null));
+            return new Result<>(ResponseCode.ERROR_QUERY_CODE, null);
         }
-        return JSON.toJSONString(new Result<>(ResponseCode.SUCCESS_QUERY_CODE, result));
+        return new Result<>(ResponseCode.SUCCESS_QUERY_CODE, result);
     }
 
     @GetMapping("/get/{id}")
-    public String selectUserById(@PathVariable("id") Long id) {
+    public Result selectUserById(@PathVariable("id") Long id) {
         User user = userService.queryUserById(id);
         if (user == null) {
-            JSON.toJSONString(new Result<>(ResponseCode.ERROR_QUERY_CODE, null));
+           return new Result<>(ResponseCode.ERROR_QUERY_CODE, null);
         }
-        return JSON.toJSONString(new Result<>(ResponseCode.SUCCESS_QUERY_CODE, user));
+        return new Result<>(ResponseCode.SUCCESS_QUERY_CODE, user);
     }
 
     @GetMapping("/like/{name}")
-    public String queryUserByLike(@PathVariable("name") String name) {
+    public Result queryUserByLike(@PathVariable("name") String name) {
         List<User> result = userService.queryUserByLike(name);
         if (result.isEmpty()) {
-            JSON.toJSONString(new Result<>(ResponseCode.ERROR_QUERY_CODE, null));
+            return new Result<>(ResponseCode.ERROR_QUERY_CODE, null);
         }
-        return JSON.toJSONString(new Result<>(ResponseCode.SUCCESS_QUERY_CODE, result));
+        return new Result<>(ResponseCode.SUCCESS_QUERY_CODE, result);
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteByUserId(@PathVariable("id") Long id) {
+    public Result deleteByUserId(@PathVariable("id") Long id) {
         User result = userService.deleteByUserId(id);
         if (result == null) {
-            JSON.toJSONString(new Result<>(ResponseCode.ERROR_QUERY_CODE, null));
+            return new Result<>(ResponseCode.ERROR_QUERY_CODE, null);
         }
-        return JSON.toJSONString(new Result<>(ResponseCode.SUCCESS_QUERY_CODE, result));
+        return new Result<>(ResponseCode.SUCCESS_QUERY_CODE, result);
     }
 
     @GetMapping("/page/{page}/{size}")
-    public String queryUserByExample(@PathVariable("page") Integer page,
+    public Result queryUserByExample(@PathVariable("page") Integer page,
                                      @PathVariable("size") Integer size) {
         List<User> result = userService.queryUserByExample(page, size);
         if (result.isEmpty()) {
-            JSON.toJSONString(new Result<>(ResponseCode.ERROR_QUERY_CODE, null));
+            return new Result<>(ResponseCode.ERROR_QUERY_CODE, null);
         }
-        return JSON.toJSONString(new Result<>(ResponseCode.SUCCESS_QUERY_CODE, result));
+        return new Result<>(ResponseCode.SUCCESS_QUERY_CODE, result);
     }
 
     @PostMapping("/update")
-    public String updateUserByExample(@RequestBody User user) {
+    public Result updateUserByExample(@RequestBody User user) {
         int i = userService.updateUserByExample(user);
         if (i == 1) {
-            JSON.toJSONString(new Result<>(ResponseCode.SUCCESS_UPDATE_CODE, null));
+            return new Result<>(ResponseCode.SUCCESS_UPDATE_CODE, null);
         }
-        return JSON.toJSONString(new Result<>(ResponseCode.ERROR_CODE, null));
+        return new Result<>(ResponseCode.ERROR_CODE, null);
     }
 
     @PostMapping("/login")
-    public String queryUserIsExist(User user) {
+    public Result queryUserIsExist(User user) {
         User result = userService.queryUserIsExist(user);
         if (result == null) {
-            return JSON.toJSONString(new Result<>(ResponseCode.ERROR_LOGIN_CODE, null));
+            return new Result<>(ResponseCode.ERROR_LOGIN_CODE, null);
         }
 
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(result.getUsername(), result.getPassword());
         subject.login(token);
 
-        return JSON.toJSONString(new Result<>(ResponseCode.SUCCESS_QUERY_CODE, result));
+        return new Result<>(ResponseCode.SUCCESS_QUERY_CODE, result);
     }
 
     @PostMapping("/phoneLogin")
-    public String phoneLogin(@RequestBody UserPhone userPhone) {
+    public Result phoneLogin(@RequestBody UserPhone userPhone) {
         String sendDetails = alibabaSms.querySendDetails(userPhone);
         if ("CODE_ERROR".equals(sendDetails)) {
-            return JSON.toJSONString(new Result<>(ResponseCode.ERROR_SMS_CODE, null));
+            return new Result<>(ResponseCode.ERROR_SMS_CODE, null);
         }
         User user = new User();
         user.setUsername(userPhone.getPhoneNum());
@@ -128,16 +128,16 @@ public class UserController {
 
         User result = userService.queryUserIsExist(user);
         if (result == null) {
-            return JSON.toJSONString(new Result<>(ResponseCode.ERROR_LOGIN_CODE, null));
+            return new Result<>(ResponseCode.ERROR_LOGIN_CODE, null);
         }
-        return JSON.toJSONString(new Result<>(ResponseCode.SUCCESS_QUERY_CODE, result));
+        return new Result<>(ResponseCode.SUCCESS_QUERY_CODE, result);
     }
 
     @PostMapping("/phoneAdd")
-    public String loginByPhone(@RequestBody UserPhone userPhone) {
+    public Result loginByPhone(@RequestBody UserPhone userPhone) {
         String sendDetails = alibabaSms.querySendDetails(userPhone);
         if ("CODE_ERROR".equals(sendDetails)) {
-            return JSON.toJSONString(new Result<>(ResponseCode.ERROR_SMS_CODE, null));
+            return new Result<>(ResponseCode.ERROR_SMS_CODE, null);
         }
         User user = new User();
         user.setUsername(userPhone.getPhoneNum());
@@ -146,24 +146,24 @@ public class UserController {
 
         User user1 = userService.queryUserIsExistByName(user.getUsername());
         if (!StringUtils.isEmpty(user1)) {
-            return JSON.toJSONString(new Result<User>(ResponseCode.ERROR_INSERT_CODE, null));
+            return new Result<User>(ResponseCode.ERROR_INSERT_CODE, null);
         }
 
         User result = userService.insertUser(user);
         if (result == null) {
-            return JSON.toJSONString(new Result<>(ResponseCode.ERROR_QUERY_CODE, null));
+            return new Result<>(ResponseCode.ERROR_QUERY_CODE, null);
         }
-        return JSON.toJSONString(new Result<>(ResponseCode.SUCCESS_INSERT_CODE, result));
+        return new Result<>(ResponseCode.SUCCESS_INSERT_CODE, result);
     }
 
 
     @GetMapping("/loginSms/{phone}")
-    public String alibabaSms(@PathVariable("phone") String phone) {
+    public Result alibabaSms(@PathVariable("phone") String phone) {
         String sendSmsStatus = alibabaSms.sendSms(phone);
         if ("OK".equals(sendSmsStatus)) {
-            return JSON.toJSONString(new Result<>(ResponseCode.SUCCESS_ALIBABA_CODE, null));
+            return new Result<>(ResponseCode.SUCCESS_ALIBABA_CODE, null);
         }
-        return JSON.toJSONString(new Result<>(ResponseCode.ERROR_CODE, null));
+        return new Result<>(ResponseCode.ERROR_CODE, null);
     }
 
 

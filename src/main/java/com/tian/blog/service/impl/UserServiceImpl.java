@@ -82,6 +82,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public List<User> queryUserList() {
+        
         List<User> users = userMapper.selectByExample(new UserExample());
         if (users.size() != 0 || users != null) {
             return users;
