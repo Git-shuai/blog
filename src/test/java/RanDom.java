@@ -1,8 +1,13 @@
-import org.apache.ibatis.reflection.ArrayUtil;
+import com.tian.blog.bean.User;
+import com.tian.blog.dto.UserDTO;
 import org.junit.Test;
+import org.springframework.beans.BeanUtils;
 
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Random;
 
 /**
  * @author tian
@@ -38,4 +43,17 @@ public class RanDom {
         System.out.println(list.get(1));
 
     }
+
+    @Test
+    public void test4(){
+        User user = new User();
+        user.setUsername("123");
+        user.setPassword("123456");
+        UserDTO userDTO = new UserDTO();
+
+        BeanUtils.copyProperties(user,userDTO);
+        System.out.println(user);
+        System.out.println(userDTO);
+    }
+
 }

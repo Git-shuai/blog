@@ -20,7 +20,9 @@ public enum ResponseCode {
     SUCCESS_CODE(200,"操作成功"),
     SUCCESS_INSERT_CODE(200,"插入成功！"),
     SUCCESS_QUERY_CODE(200,"查询成功"),
+    SUCCESS_LOGIN_CODE(200,"登录成功"),
     SUCCESS_UPDATE_CODE(200,"更新成功"),
+    SUCCESS_FILE_CODE(200,"更新成功"),
     SUCCESS_ALIBABA_CODE(200,"验证码已发送，请在30分钟内输入")
     ;
 

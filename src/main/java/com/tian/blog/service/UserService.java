@@ -1,6 +1,7 @@
 package com.tian.blog.service;
 
 import com.tian.blog.bean.User;
+import com.tian.blog.dto.UserDTO;
 
 import java.util.List;
 
@@ -15,40 +16,40 @@ public interface UserService {
      * @param user
      * @return
      */
-    public User insertUser(User user);
+    public UserDTO insertUser(User user);
 
     /**
      * 根据ID查询User 数据
      * @param id
      * @return
      */
-    public User queryUserById(Long id);
+    public UserDTO queryUserById(Long id);
 
     /**
      * 模糊查询根据姓名
      * @param name
      * @return
      */
-    public  List<User> queryUserByLike(String name);
+    public  List<UserDTO> queryUserByLike(String name);
 
     /**
      * 查询User 集合
      * @return
      */
-    public List<User> queryUserList();
+    public List<UserDTO> queryUserList();
 
     /**
      * 条件查询
      * @return
      */
-    public List<User> queryUserByExample(Integer page, Integer size);
+    public List<UserDTO> queryUserByExample(Integer page, Integer size);
 
     /**
      * 逻辑删除
      * @param id
      * @return
      */
-    public User deleteByUserId(Long id);
+    public UserDTO deleteByUserId(Long id);
 
     /**
      * 更新User数据

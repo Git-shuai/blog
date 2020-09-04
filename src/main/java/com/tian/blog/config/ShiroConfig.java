@@ -31,11 +31,12 @@ public class ShiroConfig {
 //        filterMap.put("/user/listAll","perms[user:all]");
 //        filterMap.put("/user/add","authc");
 //        filterMap.put("/user/update","authc");
-        filterMap.put("/user/update/**","authc");
-        filterMap.put("/user/delete/**","authc");
+//        filterMap.put("/user/update/**","authc");
+//        filterMap.put("/user/delete/**","authc");
+//        filterMap.put("/user/get/**","authc");
 
         bean.setLoginUrl("/toLogin");
-        bean.setUnauthorizedUrl("/noAuth");
+        bean.setUnauthorizedUrl("/user/noAuth");
         bean.setFilterChainDefinitionMap(filterMap);
         return bean;
     }

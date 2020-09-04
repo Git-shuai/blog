@@ -5,7 +5,6 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * @author tian
@@ -14,17 +13,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class LoginController {
 
-    @RequestMapping("/toLogin")
+    @RequestMapping("/toFile")
     public String toLogin(){
-        return "login";
+        return "fileUpload";
     }
-
-    @RequestMapping("/noAuth")
-    @ResponseBody
-    public String noAuth() {
-        return "未经授权不能登录";
-    }
-
 
     @RequestMapping("/logout")
     public String toIndex1(Model model) {

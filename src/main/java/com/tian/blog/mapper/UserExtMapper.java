@@ -9,6 +9,6 @@ import java.util.List;
 public interface UserExtMapper {
 
     @Select("select ID, USERNAME, GMT_CREAT, GMT_MODIFIED, PHONE, EMAIL, QQ, WECHAT, DELETE, VERSION\n" +
-            "FROM USER limit #{size} offset #{offset};")
+            "FROM USER where DELETE!=1 limit #{size} offset #{offset};")
     List<User> queryUserListByLimit(@PathParam("size") Integer size,@PathParam("offset") Integer offset);
 }

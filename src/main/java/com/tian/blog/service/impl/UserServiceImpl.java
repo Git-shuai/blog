@@ -2,17 +2,20 @@ package com.tian.blog.service.impl;
 
 import com.tian.blog.bean.User;
 import com.tian.blog.bean.UserExample;
+import com.tian.blog.dto.UserDTO;
 import com.tian.blog.mapper.UserExtMapper;
 import com.tian.blog.mapper.UserMapper;
 import com.tian.blog.service.UserService;
-import org.apache.ibatis.annotations.Param;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.Md5Hash;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author tian
@@ -34,7 +37,7 @@ public class UserServiceImpl implements UserService {
      */
     @Transactional
     @Override
-    public User insertUser(User user) {
+    public UserDTO insertUser(User user) {
         //盐值
         String salt =new SecureRandomNumberGenerator().nextBytes().toHex();
         //将原始密码加盐（上面生成的盐），并且用md5算法加密三次，将最后结果存入数据库中
@@ -45,32 +48,44 @@ public class UserServiceImpl implements UserService {
         if (i != 1) {
             return null;
         } else {
-            return user;
+            UserDTO userDTO = new UserDTO();
+            BeanUtils.copyProperties(user,userDTO);
+            return userDTO;
         }
     }
 
     /**
      * 根据ID查询User 数据
-     *
      * @param id
      * @return
      */
     @Override
-    public User queryUserById(Long id) {
+    public UserDTO queryUserById(Long id) {
         User user = userMapper.selectByPrimaryKey(id);
+        if (user.getDelete()==1){
+            return null;
+        }
         if (user != null) {
-            return user;
+            UserDTO userDTO = new UserDTO();
+            BeanUtils.copyProperties(user,userDTO);
+            return userDTO;
         }
         return null;
     }
 
     @Override
-    public List<User> queryUserByLike(String name) {
+    public List<UserDTO> queryUserByLike(String name) {
         UserExample example = new UserExample();
-        example.createCriteria().andUsernameLike("%" + name + "%");
+        example.createCriteria()
+                .andDeleteNotEqualTo(1)
+                .andUsernameLike("%" + name + "%");
         List<User> userList = userMapper.selectByExample(example);
         if (userList != null && userList.size() != 0) {
-            return userList;
+            return userList.stream().map(q -> {
+                UserDTO dto = new UserDTO();
+                BeanUtils.copyProperties(q,dto);
+                return dto;
+            }).collect(Collectors.toList());
         }
         return null;
     }
@@ -81,29 +96,43 @@ public class UserServiceImpl implements UserService {
      * @return
      */
     @Override
-    public List<User> queryUserList() {
-        
-        List<User> users = userMapper.selectByExample(new UserExample());
-        if (users.size() != 0 || users != null) {
-            return users;
+    public List<UserDTO> queryUserList() {
+
+        UserExample example = new UserExample();
+        example.createCriteria()
+                .andDeleteNotEqualTo(1);
+        List<User> userList = userMapper.selectByExample(example);
+        if (userList.size() != 0 || userList != null) {
+
+            return userList.stream().map(q -> {
+                UserDTO dto = new UserDTO();
+                BeanUtils.copyProperties(q,dto);
+                return dto;
+            }).collect(Collectors.toList());
+
         } else {
             return null;
         }
     }
 
     @Override
-    public List<User> queryUserByExample(Integer page, Integer size) {
+    public List<UserDTO> queryUserByExample(Integer page, Integer size) {
         Integer offset = size * (page - 1);
-        List<User> users = userExtMapper.queryUserListByLimit(size, offset);
-        if (users.size() == 0 && users == null) {
+        List<User> userList = userExtMapper.queryUserListByLimit(size, offset);
+        if (userList.size() == 0 && userList == null) {
             return null;
         }
-        return users;
+        return userList.stream().map(q -> {
+            UserDTO dto = new UserDTO();
+            BeanUtils.copyProperties(q,dto);
+            return dto;
+        }).collect(Collectors.toList());
+
     }
 
     @Transactional
     @Override
-    public User deleteByUserId(Long id) {
+    public UserDTO deleteByUserId(Long id) {
         User user = userMapper.selectByPrimaryKey(id);
         if (user == null) {
             return null;
@@ -114,7 +143,9 @@ public class UserServiceImpl implements UserService {
         if (deleteStatus != 1) {
             return null;
         }
-        return user;
+        UserDTO userDTO = new UserDTO();
+        BeanUtils.copyProperties(user,userDTO);
+        return userDTO;
     }
 
     @Transactional
@@ -152,4 +183,6 @@ public class UserServiceImpl implements UserService {
         }
         return null;
     }
+
+
 }
