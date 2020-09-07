@@ -1,7 +1,9 @@
 import com.tian.blog.bean.User;
 import com.tian.blog.dto.UserDTO;
+import com.tian.blog.util.OSSFile;
 import org.junit.Test;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -14,6 +16,8 @@ import java.util.Random;
  * @date 2020/8/18
  */
 public class RanDom {
+
+
     @Test
     public void test(){
         Random random = new Random();

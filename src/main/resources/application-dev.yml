@@ -20,8 +20,8 @@ spring:
     baselineOnMigrate: true
   servlet:
     multipart:
-      max-file-size: 20MB   #修改form表单上传设置单个文件的大小,
-      max-request-size: 100MB  #设置单次请求的文件的总大小
+      max-file-size: 100MB   #修改form表单上传设置单个文件的大小,
+      max-request-size: 150MB  #设置单次请求的文件的总大小
 
 logging:
   level:

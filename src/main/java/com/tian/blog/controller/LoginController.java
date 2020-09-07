@@ -18,6 +18,12 @@ public class LoginController {
         return "fileUpload";
     }
 
+
+    @RequestMapping("/tovideo")
+    public String tovideo(){
+        return "video";
+    }
+
     @RequestMapping("/logout")
     public String toIndex1(Model model) {
         Subject subject = SecurityUtils.getSubject();
@@ -29,5 +35,7 @@ public class LoginController {
         model.addAttribute("msg","用户未登录");
         return "index";
     }
+
+
 
 }

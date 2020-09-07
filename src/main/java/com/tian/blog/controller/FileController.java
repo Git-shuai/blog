@@ -62,13 +62,14 @@ public class FileController {
         String name = UUID.randomUUID().toString().replaceAll("-", "")+file.getOriginalFilename();
         //设置图片上传路径
         String path = System.getProperty("user.dir"); //获取项目路径
-        String url = "\\upload\\";   //上传文件保存路径
+        String url = "\\src\\main\\resources\\static\\upload\\";   //上传文件保存路径
         File file1 = new File(path+url);
         if (!file1.exists()){
             file1.mkdir();
         }
         String basePath=path+url+name;
         //以绝对路径保存重名命后的图片
+
         try {
             file.transferTo(new File(basePath));
         } catch (IOException e) {
