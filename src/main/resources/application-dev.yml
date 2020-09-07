@@ -1,7 +1,6 @@
 server:
   port: 9001
 
-
 spring:
   thymeleaf:
     cache: false
@@ -19,6 +18,11 @@ spring:
     # 验证错误时 是否自动清除数据库 高危操作!
     clean-on-validation-error: false
     baselineOnMigrate: true
+  servlet:
+    multipart:
+      max-file-size: 20MB   #修改form表单上传设置单个文件的大小,
+      max-request-size: 100MB  #设置单次请求的文件的总大小
+
 logging:
   level:
     com.tian.blog.mapper: debug  # 数据库日志输出

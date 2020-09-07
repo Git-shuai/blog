@@ -1,16 +1,11 @@
 package com.tian.blog.service.impl;
 
-import com.tian.blog.bean.User;
 import com.tian.blog.service.FileService;
-import com.tian.blog.service.UserService;
 import com.tian.blog.util.OSSFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -35,5 +30,21 @@ public class FileServiceImpl implements FileService {
         String ossFilename="";
         ossFilename = ossFile.oss(inputStream,filename);
         return ossFilename;
+    }
+
+    /**
+     * 大文件上传
+     * @param filename
+     * @return
+     */
+    @Override
+    public String bigFileUpload(String filename) {
+            return ossFile.PostObject(filename);
+    }
+
+    @Override
+    public String imageUpload(MultipartFile multipartFile)  {
+
+        return "";
     }
 }

@@ -1,8 +1,7 @@
 package com.tian.blog.service;
 
-import com.tian.blog.bean.User;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.InputStream;
 
 /**
@@ -18,4 +17,18 @@ public interface FileService {
      * @return
      */
     String fileUpload(InputStream inputStream, String filename);
+
+    /**
+     * 表单上传（弃用）
+     * @param filename
+     * @return
+     */
+    String bigFileUpload(String filename);
+
+    /**
+     * 本地上传
+     * @param multipartFile
+     * @return
+     */
+    public String imageUpload(MultipartFile multipartFile);
 }
